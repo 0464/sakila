@@ -13,7 +13,7 @@ public class StatsListener implements HttpSessionListener {
     public StatsListener() {
     	
     }
-    // 세션이 생성된 시점에 원래 있던 세션에 생성되었는지 아니면 이미 있던 세션인지 확인
+    // 세션이 지금 생성 된 세션이면 statsService.countStats() 호출
     public void sessionCreated(HttpSessionEvent se)  { 
     	if(se.getSession().isNew()) {
     		statsService = new StatsService();

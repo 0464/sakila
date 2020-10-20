@@ -73,7 +73,7 @@ public class StatsService {
 
 			Stats toStats = statsDao.selectDay(conn, stats);
 			System.out.println("toStats > "+toStats);
-			// 오늘 일자면 업데이트 아니면 인서트
+			// 오늘 일자가 없으면 인서트 아니면 업데이트
 			if(toStats == null) {
 				statsDao.insertStats(conn, stats);
 			} else {
