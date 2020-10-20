@@ -5,19 +5,27 @@
 <head>
 <meta charset="UTF-8">
 <title>login.jsp</title>
+<!-- 부트스트랩  -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- jQuery  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-	<form>
+	<div class="container">
 		<div>
-			<input type="text" placeholder="ID">
+			오늘 접속자 수 : ${returnToStats.cnt} / 전체 접속자 수 : ${returnStatsTotal}
 		</div>
-		<div>
-			<input type="password" placeholder="PW">
-		</div>
-		<div>
-			<button type="button">Log-in</button>
-		</div>
-	</form>
+		<form>
+			<div>
+				<input type="text" placeholder="ID" class="form-control" style="width:250px;">
+			</div>
+			<div>
+				<input type="password" placeholder="PW" class="form-control" style="width:250px;">
+			</div>
+			<div>
+				<button type="button" class="btn btn-outline-dark">Log-in</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

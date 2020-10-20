@@ -1,7 +1,6 @@
 package sakila.service;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -9,29 +8,76 @@ import sakila.dao.StatsDao;
 import sakila.vo.Stats;
 
 public class StatsService {
+	
 	private StatsDao statsDao;
-	public void countStats() {
+	
+	// 캘린더 메서드 정보은닉 and 중복된 코드를 줄이는 메서드
+	public String getToday() {
+		// 캘린더로 오늘 일자 변수 입력
+		Calendar today = Calendar.getInstance();
+		// 포맷 형식 생성
+		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+		// yyyy-MM-dd 타입으로 포맷하고 day 변수에 입력
+		String formatStats = formater.format(today.getTime());
+		System.out.println("formatStats.day > "+formatStats);
+		return formatStats;
+	}
+	
+	public Map<String, Object> getStats() {
 		statsDao = new StatsDao();
-		final String URL = "";
-		final String USER = "root";
-		final String PASSWORD = "java1004";
 		Connection conn = null;
+		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			// DB 연결
+			conn = statsDao.getConnection();
 			// 오토커밋 false
 			conn.setAutoCommit(false);
-			// 캘린더에 오늘 일자
-			Calendar today = Calendar.getInstance();
-			// yyyy-MM-dd 타입으로 포맷
-			SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
-			String day = formater.format(today);
+			
 			Stats stats = new Stats();
-			stats.setDay(day);
+			stats.setDay(this.getToday());
+			Stats returnToStats = statsDao.selectDay(conn, stats);
+			Stats returnStatsTotal = statsDao.selectTotalDay(conn);
+			conn.commit();
+			// map 형식으로 키값을 넣음
+			map.put("returnToStats", returnToStats);
+			map.put("returnStatsTotal", returnStatsTotal.getCnt());
+		}
+		catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return map;
+	}
+	
+	public void countStats() {
+		statsDao = new StatsDao();
+		Connection conn = null;
+		try {
+			// DB 연결
+			conn = statsDao.getConnection();
+			// 오토커밋 false
+			conn.setAutoCommit(false);
+			
+			Stats stats = new Stats();
+			stats.setDay(this.getToday());
+
+			Stats toStats = statsDao.selectDay(conn, stats);
+			System.out.println("toStats > "+toStats);
 			// 오늘 일자면 업데이트 아니면 인서트
-			if(statsDao.selectDay(conn, stats) == true) {
-				statsDao.updateStats(conn);
-			} else {
+			if(toStats == null) {
 				statsDao.insertStats(conn, stats);
+			} else {
+				statsDao.updateStats(conn, toStats);
 			}
 			conn.commit();
 		} catch (Exception e) {

@@ -5,9 +5,9 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
-public class DBlistener implements ServletContextListener {
+public class DBListener implements ServletContextListener {
 
-    public DBlistener() {
+    public DBListener() {
         // TODO Auto-generated constructor stub
     }
 
