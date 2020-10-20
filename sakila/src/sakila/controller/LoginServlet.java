@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
 	}
 	// 로그인 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 	}
 
 }
