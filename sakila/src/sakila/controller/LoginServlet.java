@@ -10,11 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import sakila.service.StaffService;
 import sakila.service.StatsService;
+import sakila.vo.Staff;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private StatsService statsService;
+	private StaffService staffService;
 	// 로그인 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -34,6 +37,27 @@ public class LoginServlet extends HttpServlet {
 	// 로그인 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		staffService = new StaffService();
+		Staff paramStaff = new Staff();
+		// login.jsp 페이지에서 id와 pw 값 받아와 paramStaff에 넣음
+		paramStaff.setStaffId(Integer.parseInt(request.getParameter("id")));
+		paramStaff.setPassword(request.getParameter("pw"));
+		// getStaffByKey 메서드를 호출해 loginStaff에 넣음
+		Staff loginStaff = staffService.getStaffByKey(paramStaff);
+		System.out.println("loginStaff > "+loginStaff);
+		if(loginStaff != null) {
+			// request 변수
+			int staffId = loginStaff.getStaffId();
+			String userName = loginStaff.getUsername();
+			// request
+			request.setAttribute("staffId", staffId);
+			request.setAttribute("userName", userName);
+			
+			// 포워딩
+			request.getRequestDispatcher(request.getContextPath()+"/auth/IndexServlet").forward(request, response);
+			return;
+		}
+		response.sendRedirect(request.getContextPath()+"/LoginServlet");
 	}
 
 }

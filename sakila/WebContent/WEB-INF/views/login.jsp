@@ -15,15 +15,15 @@
 		<div>
 			오늘 접속자 수 : ${returnToStats.cnt} / 전체 접속자 수 : ${returnStatsTotal}
 		</div>
-		<form>
+		<form method="post">
 			<div>
-				<input type="text" placeholder="ID" class="form-control" style="width:250px;">
+				<input type="text" name="id" placeholder="ID" class="form-control" style="width:250px;">
 			</div>
 			<div>
-				<input type="password" placeholder="PW" class="form-control" style="width:250px;">
+				<input type="password" name="pw" placeholder="PW" class="form-control" style="width:250px;">
 			</div>
 			<div>
-				<button type="button" class="btn btn-outline-dark">Log-in</button>
+				<button type="submit" class="btn btn-outline-dark">Log-in</button>
 			</div>
 		</form>
 	</div>
