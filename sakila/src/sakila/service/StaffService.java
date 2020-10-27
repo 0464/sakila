@@ -21,7 +21,7 @@ public class StaffService {
 			// 오토커밋 false
 			conn.setAutoCommit(false);
 			
-			paramStaff.setStaffId(paramStaff.getStaffId());
+			paramStaff.setEmail(paramStaff.getEmail());
 			paramStaff.setPassword(paramStaff.getPassword());
 			// // id와 pw를 받아와 데이터에 대입하여 정보가 있는지 확인하는 메서드 없다면 null값 반환
 			returnStaff = staffDao.selectStaffByKey(conn, paramStaff);

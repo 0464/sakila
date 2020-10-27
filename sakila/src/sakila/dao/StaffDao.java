@@ -15,7 +15,7 @@ public class StaffDao {
 		
 		// StaffQuery 클래스의 SELECT_STAFF_BY_KEY 메서드 호출
 		PreparedStatement stmt = conn.prepareStatement(StaffQuery.SELECT_STAFF_BY_KEY);
-		stmt.setInt(1, staff.getStaffId());
+		stmt.setString(1, staff.getEmail());
 		stmt.setString(2, staff.getPassword());
 		System.out.println("stmt > "+stmt);
 		
@@ -23,10 +23,10 @@ public class StaffDao {
 		
 		if(rs.next()) {
 			returnStaff = new Staff();
-			returnStaff.setStaffId(rs.getInt("staff_id"));
+			returnStaff.setEmail(rs.getString("email"));
 			returnStaff.setUsername(rs.getString("username"));
 			
-			System.out.println(rs.getInt("staff_id"));
+			System.out.println(rs.getString("email"));
 			System.out.println(rs.getString("username"));
 		}
 		

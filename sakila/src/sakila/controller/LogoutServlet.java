@@ -7,12 +7,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/auth/IndexServlet")
-public class IndexServlet extends HttpServlet {
 
+@WebServlet("/auth/LogoutServlet")
+public class LogoutServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("/auth/IndexServlet 호출 성공");
-		request.getRequestDispatcher("/WEB-INF/views/auth/index.jsp").forward(request, response);
+		request.getSession().invalidate();
+		System.out.println("로그아웃 실행");
+		response.sendRedirect(request.getContextPath()+"/");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

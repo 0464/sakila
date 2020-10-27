@@ -40,21 +40,23 @@ public class LoginServlet extends HttpServlet {
 		staffService = new StaffService();
 		Staff paramStaff = new Staff();
 		// login.jsp 페이지에서 id와 pw 값 받아와 paramStaff에 넣음
-		paramStaff.setStaffId(Integer.parseInt(request.getParameter("id")));
+		paramStaff.setEmail(request.getParameter("id"));
 		paramStaff.setPassword(request.getParameter("pw"));
 		// getStaffByKey 메서드를 호출해 loginStaff에 넣음
 		Staff loginStaff = staffService.getStaffByKey(paramStaff);
 		System.out.println("loginStaff > "+loginStaff);
 		if(loginStaff != null) {
 			// request 변수
-			int staffId = loginStaff.getStaffId();
+			String staffEmail = loginStaff.getEmail();
 			String userName = loginStaff.getUsername();
 			// request
-			request.setAttribute("staffId", staffId);
+			request.setAttribute("staffEmail", staffEmail);
 			request.setAttribute("userName", userName);
 			
 			// 포워딩
-			request.getRequestDispatcher(request.getContextPath()+"/auth/IndexServlet").forward(request, response);
+			HttpSession session = request.getSession();
+			session.setAttribute("loginStaff", loginStaff);
+			response.sendRedirect(request.getContextPath() + "/auth/IndexServlet");
 			return;
 		}
 		response.sendRedirect(request.getContextPath()+"/LoginServlet");

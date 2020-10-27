@@ -9,13 +9,20 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- jQuery  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('#loginBtn').click(function(){
+			$('#loginForm').submit();
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="container">
 		<div>
 			오늘 접속자 수 : ${returnToStats.cnt} / 전체 접속자 수 : ${returnStatsTotal}
 		</div>
-		<form method="post">
+		<form id="loginForm" method="post" action="${pageContext.request.contextPath}/">
 			<div>
 				<input type="text" name="id" placeholder="ID" class="form-control" style="width:250px;">
 			</div>
@@ -23,7 +30,7 @@
 				<input type="password" name="pw" placeholder="PW" class="form-control" style="width:250px;">
 			</div>
 			<div>
-				<button type="submit" class="btn btn-outline-dark">Log-in</button>
+				<button id="loginBtn" type="button" class="btn btn-outline-dark">Log-in</button>
 			</div>
 		</form>
 	</div>
