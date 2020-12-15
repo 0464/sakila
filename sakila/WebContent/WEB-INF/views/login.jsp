@@ -24,10 +24,10 @@
 		</div>
 		<form id="loginForm" method="post" action="${pageContext.request.contextPath}/">
 			<div>
-				<input type="text" name="id" placeholder="ID" class="form-control" style="width:250px;">
+				<input type="text" name="id" placeholder="ID" class="form-control" style="width:250px;" value="Mike.Hillyer@sakilastaff.com">
 			</div>
 			<div>
-				<input type="password" name="pw" placeholder="PW" class="form-control" style="width:250px;">
+				<input type="password" name="pw" placeholder="PW" class="form-control" style="width:250px;" value="1234">
 			</div>
 			<div>
 				<button id="loginBtn" type="button" class="btn btn-outline-dark">Log-in</button>
