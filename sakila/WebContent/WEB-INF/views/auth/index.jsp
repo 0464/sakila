@@ -1,48 +1,42 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>index</title>
 <!-- 부트스트랩  -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- 부트스트랩 Icons -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+					integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+					crossorigin="anonymous">
 <!-- jQuery  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body class="container">
-	<h1>index.jsp</h1>
-	<nav class="navbar-expand-sm bg-dark navbar-dark">
-	<ul class="navbar-nav">
-		<li class="nav-item">
-			<a class="nav-link">${loginStaff.email} 관리자님</a>
-		</li>
-		<li>
-			<a class="nav-link" href="${pageContext.request.contextPath}/auth/LogoutServlet">Log-out</a>
-		</li>
-	</ul>
-	</nav>
+<body>
+<div class="container">
 	<div class="row">
-	<div class="col-sm-2">
-	<ul class="nav flex-column">
-		<li class="nav-item"><h4>Menu</h4></li>
-		<li><a href="${pageContext.request.contextPath}/auth/IndexServlet">홈</a></li>
-		<li><hr></li>
-		<li>영화반납</li>
-		<li><hr></li>
-		<li>회원목록 관리</li>
-		<li>영화목록 관리</li>
-		<li>영화재고 관리</li>
-		<li>영화배우 관리</li>
-		<li>영화 출연배우 등록</li>
-		<li><hr></li>
-		<li>매장통계</li>
-		<li>MVP</li>
-	</ul>
+		<div class="col-sm-3">
+			<jsp:include page="/inc/menu.jsp"></jsp:include>
+		</div>
+		<div class="col-sm-9"><br>
+		<h1>Sakila 비디오 대여점 프로젝트</h1><hr>
+		
+		<table class="table table-bordered table-hover">
+			<tr><th>To Do List</th></tr>
+			<tr><td>영화반납</td></tr>
+			<tr><td>영화 상세보기 기능</td></tr>
+			<tr><td>영화목록 검색 기능</td></tr>
+			<tr><td>영화배우 관리</td></tr>
+			<tr><td>영화 출연배우 등록</td></tr>
+			<tr><td>영화 배우 상세보기 기능</td></tr>
+			<tr><td>관리자 마이페이지 상세보기 기능</td></tr>
+			<tr><td>회원 상세보기 기능</td></tr>
+			<tr><td>매장통계</td></tr>
+			<tr><td>MVP</td></tr>
+		</table>
+		</div>
 	</div>
-	<div class="col-sm-10">
-	내용
-	</div>
-	</div>
+</div>
 </body>
 </html>
