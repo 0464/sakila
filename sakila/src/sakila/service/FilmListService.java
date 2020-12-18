@@ -76,4 +76,37 @@ public class FilmListService {
 		
 		return count;
 	}
+	// 영화 상세보기
+	public ArrayList<Film> getFilmOne(Film film) {
+		ArrayList<Film> list = null;
+		
+		filmListDao = new FilmListDao();
+		Connection conn = null;
+		
+		try {
+			DBUtil dbUtil = new DBUtil();	// 데이터베이스 정보가 담긴 객체 생성
+			conn = dbUtil.getConnection();	// 데이터베이스 접속
+			
+			// 쿼리 실행
+			list = filmListDao.selectFilmOne(conn, film);
+			
+			// 쿼리성공 시  commit
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
 }

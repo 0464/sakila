@@ -6,4 +6,8 @@ public class FilmListQuery {
 	
 	// 영화 목록 카운트 쿼리
 	public final static String SELECT_COUNT_FILM_LIST = "SELECT COUNT(*) FROM film_list AS fl INNER JOIN film AS f ON fl.FID = f.film_id INNER JOIN language AS l on f.language_id = l.language_id";
+
+	// 영화 상세보기 쿼리
+	public final static String SELECT_FILM_ONE = "SELECT f.film_id, f.title, f.description, f.release_year, l.name, f.LENGTH, f.replacement_cost, f.rating, f.special_features, f.last_update FROM film AS f INNER JOIN language AS l ON f.language_id=l.language_id WHERE film_id=?";
+
 }

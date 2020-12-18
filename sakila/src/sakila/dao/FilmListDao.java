@@ -7,6 +7,34 @@ import sakila.query.*;
 import sakila.vo.*;
 
 public class FilmListDao {
+	// 영화 상세보기 출력 메서드
+	public ArrayList<Film> selectFilmOne(Connection conn, Film paramFilm) throws Exception {
+		
+		ArrayList<Film> list = new ArrayList<Film>();
+		
+		PreparedStatement stmt = conn.prepareStatement(FilmListQuery.SELECT_FILM_ONE);
+		stmt.setInt(1, paramFilm.getFilmId());
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			Film film = new Film();
+			film.setFilmId(rs.getInt("film_id"));
+			film.setTitle(rs.getString("title"));
+			film.setDescription(rs.getString("description"));
+			film.setReleaseYear(rs.getString("release_year"));
+			film.setLanguage(rs.getString("name"));
+			film.setLength(rs.getInt("LENGTH"));
+			film.setReplacementCost(rs.getFloat("replacement_cost"));
+			film.setRating(rs.getString("rating"));
+			film.setLastUpdate(rs.getString("last_update"));
+			list.add(film);
+		}
+		System.out.println("list : "+list);
+		return list;
+	}
+	
+	
 	// 영화 목록 출력 메서드
 	public ArrayList<Film> selectFilmList(Connection conn, int beginRow, int rowPerPage) throws Exception {
 		

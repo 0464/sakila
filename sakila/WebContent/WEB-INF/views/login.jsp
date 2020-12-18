@@ -40,7 +40,7 @@
 			</div>
 			<div class="form-group">
 				<label>Password : </label>
-				<input class="form-control" type="password" name="pw" placeholder="1234" class="form-control" value="1234" required>
+				<input class="form-control" type="password" name="pw" placeholder="1234" class="form-control" required>
 				<div class="valid-feedback"></div>
       			<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
 			</div>

@@ -36,7 +36,7 @@
 			<tr>
 				<td>${fs.filmId}</td>
 				<td>${fs.category}</td>
-				<td>${fs.title}</td>
+				<td><a href="${pageContext.request.contextPath}/auth/FilmOneServlet?filmId=${fs.filmId}">${fs.title}</a></td>
 				<td>${fs.language}</td>
 				<td>${fs.rating}</td>
 				<td>${fs.filmRentalAmount}</td>
