@@ -1,9 +1,14 @@
 package sakila.service;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
+import sakila.commons.DBUtil;
+import sakila.dao.FilmListDao;
 import sakila.dao.StaffDao;
 import sakila.dao.StatsDao;
+import sakila.vo.Film;
 import sakila.vo.Staff;
 
 public class StaffService {
@@ -42,6 +47,39 @@ public class StaffService {
 			}
 		}
 		return returnStaff;
+	}
+	// 관리자 마이페이지
+	public ArrayList<Staff> getStaffInfo(Staff staff) {
+		ArrayList<Staff> list = null;
+		
+		staffDao = new StaffDao();
+		Connection conn = null;
+		
+		try {
+			DBUtil dbUtil = new DBUtil();	// 데이터베이스 정보가 담긴 객체 생성
+			conn = dbUtil.getConnection();	// 데이터베이스 접속
+			
+			// 쿼리 실행
+			list = staffDao.selectStaffInfo(conn, staff);
+			
+			// 쿼리성공 시  commit
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
 	}
 	
 }

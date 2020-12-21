@@ -48,9 +48,11 @@ public class LoginServlet extends HttpServlet {
 			// request 변수
 			String staffEmail = loginStaff.getEmail();
 			String userName = loginStaff.getUsername();
+			int staffId = loginStaff.getStaffId();
 			// request
 			request.setAttribute("staffEmail", staffEmail);
 			request.setAttribute("userName", userName);
+			request.setAttribute("staffId", staffId);
 			
 			// 포워딩
 			HttpSession session = request.getSession();

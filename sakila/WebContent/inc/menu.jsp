@@ -2,7 +2,7 @@
 <table class="tabel" style="width:100%">
 	<tr><td><br><br></td></tr>
 	<tr><td style="text-align:center"><h1>Sakila</h1></td></tr>
-	<tr><td style="text-align:center"><i class="fas fa-user-circle fa-3x"></i></td></tr>
+	<tr><td style="text-align:center"><a style="color:black" href="${pageContext.request.contextPath}/auth/StaffServlet?staffId=${loginStaff.staffId}"><i class="fas fa-user-circle fa-3x"></i></a></td></tr>
 	<tr><td style="text-align:center">
 		<h6>${loginStaff.username} 관리자님</h6>
 		<button type="button" class="btn btn-sm btn-outline-dark" onclick="location.href='${pageContext.request.contextPath}/auth/LogoutServlet'">Log-out</button><hr>
@@ -18,6 +18,6 @@
 	<tr><td><a style="color:black" class="nav-link" href="${pageContext.request.contextPath}/auth/ActorListServlet">영화배우 관리</a></td></tr>
 	<tr><td><a style="color:black" class="nav-link" href="">영화 출연배우 등록</a></td></tr>
 	<tr><td><hr></td></tr>
-	<tr><td><a style="color:black" class="nav-link" href="${pageContext.request.contextPath}/auth/ChartListServlet">매장통계</a></td></tr>
+	<tr><td><a style="color:black" class="nav-link" href="${pageContext.request.contextPath}/auth/TotalServlet">매장통계</a></td></tr>
 	<tr><td><a style="color:black" class="nav-link" href="${pageContext.request.contextPath}/auth/MVPListServlet">MVP</a><hr></td></tr>
 </table>

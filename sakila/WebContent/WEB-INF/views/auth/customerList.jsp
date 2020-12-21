@@ -34,7 +34,7 @@
 			<c:forEach var="c" items="${customerList}">
 			<tr>
 				<td>${c.customerId}</td>
-				<td>${c.name}</td>
+				<td><a href="${pageContext.request.contextPath}/auth/CustomerOneServlet?customerId=${c.customerId}&currentPage=${currentPage}">${c.name}</a></td>
 				<td>${c.phone}</td>
 				<td>${c.notes}</td>
 				<td>

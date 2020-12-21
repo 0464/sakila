@@ -5,6 +5,7 @@ public class Staff {
 	private String firstName;
 	private String lastName;
 	private int addressId;
+	private String address;
 	private String picture;
 	private String email;
 	private int storeId;
@@ -13,6 +14,13 @@ public class Staff {
 	private String password;
 	private String lastUpdate;
 	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public int getStaffId() {
 		return staffId;
 	}
@@ -103,7 +111,9 @@ public class Staff {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		return "Staff [staffId=" + staffId + ", firstName=" + firstName + ", lastName=" + lastName + ", addressId="
+				+ addressId + ", address=" + address + ", picture=" + picture + ", email=" + email + ", storeId="
+				+ storeId + ", active=" + active + ", username=" + username + ", password=" + password + ", lastUpdate="
+				+ lastUpdate + "]";
 	}
 }

@@ -30,8 +30,6 @@
 			<tr><td>연체여부별 회원 검색</td></tr>
 			<tr><td>영화 출연배우 등록</td></tr>
 			<tr><td>관리자 마이페이지 상세보기 기능</td></tr>
-			<tr><td>매장통계</td></tr>
-			<tr><td>MVP</td></tr>
 		</table>
 		</div>
 	</div>
