@@ -59,6 +59,31 @@ public class FilmListDao {
 		System.out.println("list : "+list);
 		return list;
 	}
+	// 영화 검색 목록 출력 메서드
+		public ArrayList<Film> selectFilmSearchList(Connection conn, int beginRow, int rowPerPage, String search) throws Exception {
+			
+			ArrayList<Film> list = new ArrayList<Film>();
+			
+			PreparedStatement stmt = conn.prepareStatement(FilmListQuery.SELECT_FILM_SEARCH_LIST);
+			stmt.setNString(1, "%"+search+"%");
+			stmt.setInt(2, beginRow);
+			stmt.setInt(3, rowPerPage);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Film film = new Film();
+				film.setFilmId(rs.getInt("FID"));
+				film.setCategory(rs.getString("category"));
+				film.setTitle(rs.getString("title"));
+				film.setLanguage(rs.getString("name"));
+				film.setRating(rs.getString("rating"));
+				film.setRentalRate(rs.getFloat("price"));
+				list.add(film);
+			}
+			System.out.println("list : "+list);
+			return list;
+		}
 	
 	// 영화 목록 카운트 메서드
 	public int countFilmList(Connection conn) throws Exception {
@@ -66,6 +91,22 @@ public class FilmListDao {
 		int count = 0;
 		
 		PreparedStatement stmt = conn.prepareStatement(FilmListQuery.SELECT_COUNT_FILM_LIST);
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next()) {
+            count = rs.getInt("count(*)");
+        }
+		
+		return count;
+	}
+	// 영화 검색 목록 카운트 메서드
+	public int countSearchFilmList(Connection conn, String search) throws Exception {
+		
+		int count = 0;
+		
+		PreparedStatement stmt = conn.prepareStatement(FilmListQuery.SELECT_COUNT_SEARCH_FILM_LIST);
+		stmt.setNString(1, "%"+search+"%");
 		
 		ResultSet rs = stmt.executeQuery();
 		

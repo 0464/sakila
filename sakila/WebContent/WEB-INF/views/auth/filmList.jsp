@@ -23,6 +23,12 @@
 		<div class="col-sm-9">
 		<br>
 		<h1>영화 목록</h1><hr>
+		<div class="form-inline">
+			<form class="form-inline" method="get" action="${pageContext.request.contextPath}/auth/FilmListServlet">
+				<input class="form-control mr-sm-1 mb-sm-1" type="text" style="width:300px" placeholder="영화 제목" name="search" value="">
+				<button class="form-control btn btn-outline-success mb-sm-1" type="submit">Search</button>
+			</form>
+		</div>
 		<table class="table table-bordered table-hover" style="text-align:center">
 			<tr>
 				<th>번호</th>
@@ -49,7 +55,7 @@
 				<c:choose>
 					<c:when test="${currentPage > 1}">
 						<li class="page-item">
-							<a class="page-link" href="${pageContext.request.contextPath}/auth/FilmListServlet?currentPage=1">처음</a>
+							<a class="page-link" href="${pageContext.request.contextPath}/auth/FilmListServlet?currentPage=1&search=${search}">처음</a>
 						</li>
 					</c:when>
 					<c:otherwise>
@@ -63,7 +69,7 @@
 				<c:choose>
 					<c:when test="${currentPage > 1}">
 						<li class="page-item">
-							<a class="page-link" href="${pageContext.request.contextPath}/auth/FilmListServlet?currentPage=${currentPage - 1}">이전</a>
+							<a class="page-link" href="${pageContext.request.contextPath}/auth/FilmListServlet?currentPage=${currentPage - 1}&search=${search}">이전</a>
 						</li>
 					</c:when>
 					<c:otherwise>
@@ -86,7 +92,7 @@
 							<%-- 현재 페이지가 아닌 선택 가능한 페이지 --%>
 							<c:otherwise>
 								<li class="page-item">
-									<a class="page-link" href="${pageContext.request.contextPath}/auth/FilmListServlet?currentPage=${i}">${i}</a>
+									<a class="page-link" href="${pageContext.request.contextPath}/auth/FilmListServlet?currentPage=${i}&search=${search}">${i}</a>
 								</li>
 							</c:otherwise>
 						</c:choose>
@@ -97,7 +103,7 @@
 				<c:choose>
 					<c:when test="${currentPage < lastPage}">
 						<li class="page-item">
-							<a class="page-link" href="${pageContext.request.contextPath}/auth/FilmListServlet?currentPage=${currentPage + 1}">다음</a>
+							<a class="page-link" href="${pageContext.request.contextPath}/auth/FilmListServlet?currentPage=${currentPage + 1}&search=${search}">다음</a>
 						</li>
 					</c:when>
 					<c:otherwise>
@@ -111,7 +117,7 @@
 				<c:choose>
 					<c:when test="${currentPage < lastPage}">
 						<li class="page-item">
-							<a class="page-link" href="${pageContext.request.contextPath}/auth/FilmListServlet?currentPage=${lastPage}">마지막</a>
+							<a class="page-link" href="${pageContext.request.contextPath}/auth/FilmListServlet?currentPage=${lastPage}&search=${search}">마지막</a>
 						</li>
 					</c:when>
 					<c:otherwise>

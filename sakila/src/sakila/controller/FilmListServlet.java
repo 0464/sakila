@@ -23,18 +23,24 @@ public class FilmListServlet extends HttpServlet {
 		
 		// 현재 페이지
 		int currentPage = 1;
-		
 		if (request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		// 검색 내용
+		String search = "";
+		if (request.getParameter("search") != null) {
+			search = request.getParameter("search");
 		}
 		
 		// 페이지당 데이터를 표시할 개수
 		int rowPerPage = 10;
-		
 		// 전체 데이터 수
 		int totalCount = 0;
-		totalCount = filmListService.countFilmList();
-		System.out.println("Debug: totalCount(" + totalCount + ")");
+		// 검색 내용이 있을 경우
+		if (search != null) {
+			totalCount = filmListService.countSearchFilmList(search);
+		}
+		System.out.println("totalCount : " + totalCount);
 		
 		// 마지막 페이지
 		int lastPage = totalCount / rowPerPage;
@@ -57,8 +63,16 @@ public class FilmListServlet extends HttpServlet {
 		}
 		
 		ArrayList<Film> list = filmListService.getFilmList((currentPage - 1) * rowPerPage, rowPerPage);
+		// 검색 내용이 있을 경우
+		if (search != null) {
+			System.out.println("search : "+search);
+			list = filmListService.getFilmSearchList((currentPage - 1) * rowPerPage, rowPerPage, search);
+		}
+		
 		// 필름 리스트
 		request.setAttribute("filmList", list);
+		// 필름 검색
+		request.setAttribute("search", search);
 		// 페이징
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("lastPage", lastPage);
