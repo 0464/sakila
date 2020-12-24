@@ -3,7 +3,7 @@ package sakila.query;
 public class CustomerListQuery {
 	// 회원 목록 쿼리
 	public final static String SELECT_CUSTOMER_LIST = "SELECT cust.ID, cust.name, cust.phone, cust.notes, IF((SELECT COUNT(*) "
-													+ "FROM rental WHERE return_date IS NULL AND customer_id = cust.ID) > 0,'Y','N') AS overdue FROM customer_list cust ORDER BY cust.id ASC LIMIT ?, ?";
+													+ "FROM rental WHERE return_date IS NULL AND customer_id = cust.ID) > 0,'연체','미연체') AS overdue FROM customer_list cust ORDER BY cust.id ASC LIMIT ?, ?";
 	// 회원 목록 카운트 쿼리
 	public final static String SELECT_COUNT_CUSTOMER_LIST = "SELECT COUNT(*) FROM customer_list";
 	// 회원 상세보기 쿼리
@@ -17,4 +17,9 @@ public class CustomerListQuery {
 												"GROUP BY name\r\n" + 
 												"ORDER BY totalAmount DESC\r\n" + 
 												"LIMIT 0, 10";
+	// 회원 목록 검색 쿼리
+	public final static String SELECT_CUSTOMER_SEARCH_LIST = "SELECT cust.ID, cust.name, cust.phone, cust.notes, IF((SELECT COUNT(*) FROM rental WHERE return_date IS NULL AND customer_id = cust.ID) > 0,'연체','미연체') AS overdue FROM customer_list AS cust "
+			+ "WHERE (IF((SELECT COUNT(*) FROM rental WHERE return_date IS NULL AND customer_id = cust.ID) > 0,'연체','미연체')) = ? ORDER BY cust.id ASC LIMIT ?, ?";
+	// 회원 목록 검색 카운트 쿼리
+	public final static String SELECT_COUNT_CUSTOMER_SEARCH_LIST = "SELECT COUNT(*) FROM customer_list AS cust WHERE (IF((SELECT COUNT(*) FROM rental WHERE return_date IS NULL AND customer_id = cust.ID) > 0,'연체','미연체')) = ? ORDER BY cust.id";
 }

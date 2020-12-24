@@ -27,13 +27,21 @@ public class FilmStockListServlet extends HttpServlet {
 		if (request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
+		// 검색 내용
+		String search = "";
+		if (request.getParameter("search") != null) {
+			search = request.getParameter("search");
+		}
 		
 		// 페이지당 데이터를 표시할 개수
 		int rowPerPage = 10;
-		
 		// 전체 데이터 수
-		int totalCount = 0;
-		totalCount = filmStockListService.countFilmStockList();	// 전체 데이터 개수
+		int totalCount = filmStockListService.countFilmStockList();
+		// 검색 내용이 있을 경우
+		if (search != null) {
+			totalCount = filmStockListService.countSearchFilmStockList(search);
+		}
+		System.out.println("totalCount : " + totalCount);
 		
 		// 마지막 페이지
 		int lastPage = totalCount / rowPerPage;
@@ -55,8 +63,15 @@ public class FilmStockListServlet extends HttpServlet {
 		}
 		
 		ArrayList<Film> list = filmStockListService.getFilmStockList((currentPage - 1) * rowPerPage, rowPerPage);
+		// 검색 내용이 있을 경우
+		if (search != "") {
+			System.out.println("search : "+search);
+			list = filmStockListService.getFilmSearchStockList((currentPage - 1) * rowPerPage, rowPerPage, search);
+		}
 		// 영화 재고 목록 리스트
 		request.setAttribute("filmStockList", list);
+		// 필름 검색
+		request.setAttribute("search", search);
 		// 페이징
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("lastPage", lastPage);

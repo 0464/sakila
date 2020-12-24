@@ -141,12 +141,54 @@ public class FilmListDao {
 		return list;
 	}
 	
+	// 영화 재고 검색 목록 출력 메서드
+	public ArrayList<Film> selectFilmSearchStockList(Connection conn, int beginRow, int rowPerPage, String search) throws Exception {
+		
+		ArrayList<Film> list = new ArrayList<Film>();
+		
+		PreparedStatement stmt = conn.prepareStatement(FilmStockListQuery.SELECT_FILM_STOCK_SEARCH_LIST);
+		stmt.setNString(1, "%"+search+"%");
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, rowPerPage);
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			Film film = new Film();
+			film.setFilmId(rs.getInt("film_id"));
+			film.setCategory(rs.getString("category"));
+			film.setTitle(rs.getString("title"));
+			film.setLanguage(rs.getString("language"));
+			film.setRating(rs.getString("rating"));
+			film.setFilmRentalAmount(rs.getInt("cnt"));
+			list.add(film);
+		}
+		System.out.println("list : "+list);
+		return list;
+	}
+	
 	// 영화 재고 목록 카운트 메서드
 	public int countFilmStockList(Connection conn) throws Exception {
 		
 		int count = 0;
 		
 		PreparedStatement stmt = conn.prepareStatement(FilmStockListQuery.SELECT_COUNT_FILM_STOCK_LIST);
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next()) {
+            count = rs.getInt("count(*)");
+        }
+		
+		return count;
+	}
+	// 영화 재고 검색 목록 카운트 메서드
+	public int countSearchFilmStockList(Connection conn, String search) throws Exception {
+		
+		int count = 0;
+		
+		PreparedStatement stmt = conn.prepareStatement(FilmStockListQuery.SELECT_COUNT_FILM_STOCK_SEARCH_LIST);
+		stmt.setNString(1, "%"+search+"%");
 		
 		ResultSet rs = stmt.executeQuery();
 		

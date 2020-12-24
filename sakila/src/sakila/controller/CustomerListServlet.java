@@ -25,6 +25,11 @@ public class CustomerListServlet extends HttpServlet {
 		if (request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
+		// 검색 내용
+		String search = null;
+		if (request.getParameter("search") != null) {
+			search = request.getParameter("search");
+		}
 		
 		// 페이지당 데이터를 표시할 개수
 		int rowperPage = 10;
@@ -32,6 +37,10 @@ public class CustomerListServlet extends HttpServlet {
 		// 전체 데이터 수
 		int totalCount = 0;
 		totalCount = customerListService.countCustomerList();
+		// 검색 내용이 있을 경우
+		if (search != null && search != "") {
+			totalCount = customerListService.countCustomerSearchList(search);
+		}
 		System.out.println("totalCount : "+totalCount);
 		// 마지막 페이지
 		int lastPage = totalCount / rowperPage;
@@ -54,9 +63,16 @@ public class CustomerListServlet extends HttpServlet {
 		}
 		
 		ArrayList<Customer> list = customerListService.getCustomerList((currentPage - 1) * rowperPage, rowperPage);
+		// 검색 내용이 있을 경우
+		if (search != null && search != "") {
+			System.out.println("search : "+search);
+			list = customerListService.getCustomerSearchList((currentPage - 1) * rowperPage, rowperPage, search);
+		}
 		System.out.println("list : "+list);
 		// 회원 리스트
 		request.setAttribute("customerList", list);
+		// 필름 검색
+		request.setAttribute("search", search);
 		// 페이징
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("lastPage", lastPage);

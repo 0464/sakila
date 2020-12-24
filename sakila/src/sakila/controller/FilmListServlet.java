@@ -35,9 +35,9 @@ public class FilmListServlet extends HttpServlet {
 		// 페이지당 데이터를 표시할 개수
 		int rowPerPage = 10;
 		// 전체 데이터 수
-		int totalCount = 0;
+		int totalCount = filmListService.countFilmList();
 		// 검색 내용이 있을 경우
-		if (search != null) {
+		if (search != "") {
 			totalCount = filmListService.countSearchFilmList(search);
 		}
 		System.out.println("totalCount : " + totalCount);
@@ -64,7 +64,7 @@ public class FilmListServlet extends HttpServlet {
 		
 		ArrayList<Film> list = filmListService.getFilmList((currentPage - 1) * rowPerPage, rowPerPage);
 		// 검색 내용이 있을 경우
-		if (search != null) {
+		if (search != "") {
 			System.out.println("search : "+search);
 			list = filmListService.getFilmSearchList((currentPage - 1) * rowPerPage, rowPerPage, search);
 		}
