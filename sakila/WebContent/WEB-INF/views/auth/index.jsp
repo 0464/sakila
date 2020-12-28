@@ -24,8 +24,6 @@
 		
 		<table class="table table-bordered table-hover">
 			<tr><th>To Do List</th></tr>
-			<tr><td>영화반납</td></tr>
-			<tr><td>영화 출연배우 등록</td></tr>
 		</table>
 		</div>
 	</div>

@@ -10,13 +10,12 @@
 	<tr><td style="text-align:center"><h4>Menu</h4></td></tr>
 	<tr><td><a style="color:black" class="nav-link" href="${pageContext.request.contextPath}/auth/IndexServlet">홈</a></td></tr>
 	<tr><td><hr></td></tr>
-	<tr><td><a style="color:black" class="nav-link" href="">영화반납</a></td></tr>
+	<tr><td><a style="color:black" class="nav-link" href="${pageContext.request.contextPath}/auth/RentalListServlet">영화반납</a></td></tr>
 	<tr><td><hr></td></tr>
 	<tr><td><a style="color:black" class="nav-link" href="${pageContext.request.contextPath}/auth/CustomerListServlet">회원목록 관리</a></td></tr>
 	<tr><td><a style="color:black" class="nav-link" href="${pageContext.request.contextPath}/auth/FilmListServlet">영화목록 관리</a></td></tr>
 	<tr><td><a style="color:black" class="nav-link" href="${pageContext.request.contextPath}/auth/FilmStockListServlet">영화재고 관리</a></td></tr>
 	<tr><td><a style="color:black" class="nav-link" href="${pageContext.request.contextPath}/auth/ActorListServlet">영화배우 관리</a></td></tr>
-	<tr><td><a style="color:black" class="nav-link" href="">영화 출연배우 등록</a></td></tr>
 	<tr><td><hr></td></tr>
 	<tr><td><a style="color:black" class="nav-link" href="${pageContext.request.contextPath}/auth/TotalServlet">매장통계</a></td></tr>
 	<tr><td><a style="color:black" class="nav-link" href="${pageContext.request.contextPath}/auth/MVPListServlet">MVP</a><hr></td></tr>
