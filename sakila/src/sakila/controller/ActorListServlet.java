@@ -26,12 +26,23 @@ public class ActorListServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		System.out.println("currentPage : "+currentPage);
+		
+		// 검색
+		String search = "";
+		if (request.getParameter("search") != null) {
+			search = request.getParameter("search");
+		}
 		// 페이지당 데이터를 표시할 개수
 		int rowperPage = 10;
 		
 		// 전체 데이터 수
 		int totalCount = 0;
 		totalCount = actorListService.countActorList();
+		// 검색 내용이 있을 경우
+		if (search != "") {
+			totalCount = actorListService.countActorSearchList(search);
+		}
+		
 		System.out.println("totalCount : "+totalCount);
 		// 마지막 페이지
 		int lastPage = totalCount / rowperPage;
@@ -54,7 +65,14 @@ public class ActorListServlet extends HttpServlet {
 		}
 		
 		ArrayList<Actor> list = actorListService.getActorList((currentPage - 1) * rowperPage, rowperPage);
+		// 검색 내용이 있을 경우
+		if (search != "") {
+			System.out.println("search : "+search);
+			list = actorListService.getActorSearchList((currentPage - 1) * rowperPage, rowperPage, search);
+		}
 		System.out.println("list : "+list);
+		// 필름 검색
+		request.setAttribute("search", search);
 		// 회원 리스트
 		request.setAttribute("actorList", list);
 		// 페이징

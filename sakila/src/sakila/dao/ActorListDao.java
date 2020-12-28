@@ -28,6 +28,27 @@ public class ActorListDao {
 		}
 		return list;
 	}
+	// 배우 목록 검색 출력 메서드
+	public ArrayList<Actor> selectActorSearchList(Connection conn, int beginRow, int rowperPage, String search) throws Exception {
+		ArrayList<Actor> list = new ArrayList<Actor>();
+		
+		PreparedStatement stmt = conn.prepareStatement(ActorListQuery.SELECT_ACTOR_SEARCH_LIST);
+		stmt.setNString(1, "%"+search+"%");
+		stmt.setNString(2, "%"+search+"%");
+		stmt.setInt(3, beginRow);
+		stmt.setInt(4, rowperPage);
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			Actor actorList = new Actor();
+			actorList.setActorId(rs.getInt("actor_id"));
+			actorList.setFirstName(rs.getString("first_name"));
+			actorList.setLastName(rs.getString("last_name"));
+			list.add(actorList);
+		}
+		return list;
+	}
 	// 배우 목록 카운트 메서드
 	public int countActorList(Connection conn) throws Exception {
 		
@@ -41,6 +62,22 @@ public class ActorListDao {
             count = rs.getInt("count(*)");
         }
 		
+		return count;
+	}
+	// 배우 목록 검색 카운트 메서드
+	public int countActorSearchList(Connection conn, String search) throws Exception {
+		
+		int count = 0;
+		
+		PreparedStatement stmt = conn.prepareStatement(ActorListQuery.SELECT_COUNT_ACTOR_SEARCH_LIST);
+		stmt.setNString(1, "%"+search+"%");
+		stmt.setNString(2, "%"+search+"%");
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next()) {
+            count = rs.getInt("count(*)");
+        }
 		return count;
 	}
 	// 배우 상세보기 출력 메서드
